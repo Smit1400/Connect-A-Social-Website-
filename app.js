@@ -2,6 +2,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mongodb_url = require("./mongo_credentials");
 
+const userRoutes = require("./routes/user");
+
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -13,15 +15,13 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.get("/", (req, res, next) => {
-    res.render("forum");
+    res.render("home");
 });
 
-app.post("/forum", (req, res, next) => {
-    const question = req.body.question;
-    const description = req.body.description;
-    console.log(question, description);
-    res.redirect("/");
-});
+// use /display to see all the questions
+
+app.use(userRoutes);
+
 mongoose
     .connect(mongodb_url)
     .then((result) => {

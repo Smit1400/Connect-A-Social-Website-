@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Forum</title>
+</head>
+
+<body>
+    <form action="/edit-question" method="POST">
+        <textarea name="question" id="question" cols="30" rows="5" placeholder="Write Your Question Here">
+<%= question.question %></textarea
+      >
+      <textarea
+        name="description"
+        id="description"
+        cols="30"
+        rows="5"
+        placeholder="Description"
+      >
+<%= question.description %></textarea
+      >
+      <input type="hidden" name="questionId" value="<%= question._id %>" />
+      <button type="submit">Post</button>
+    </form>
+  </body>
+</html>
