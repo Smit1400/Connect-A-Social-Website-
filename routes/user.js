@@ -9,9 +9,12 @@ router.get("/forum", userController.getForumForm);
 
 router.post("/forum", userController.postForumForm);
 
-router.post("/delete-question/:questionId", userController.postDeleteQuestion);
+router.delete(
+    "/delete-question/:questionId",
+    userController.postDeleteQuestion
+);
 
-router.post("/edit-question", userController.postEditQuestionForm);
+router.put("/edit-question", userController.postEditQuestionForm);
 
 router.get("/edit-question/:questionId", userController.getEditQuestionForm);
 

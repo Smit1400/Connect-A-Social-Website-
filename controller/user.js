@@ -3,8 +3,8 @@ const Forum = require("../models/forum");
 exports.getForum = (req, res, next) => {
     Forum.find()
         .then((questions) => {
-            res.render("display", {
-                allQuestions: questions,
+            res.status(200).json({
+                questions: questions,
             });
         })
         .catch((err) => console.log(err));
@@ -23,7 +23,11 @@ exports.postForumForm = (req, res, next) => {
         })
         .then((result) => {
             console.log("Created");
-            res.redirect("/display");
+            res.status(200).json({
+                message: "Successfully Created!",
+                question: question,
+                description: description,
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -56,7 +60,10 @@ exports.postEditQuestionForm = (req, res, next) => {
             data
                 .save()
                 .then((result) => {
-                    res.redirect("/display");
+                    res.status(200).json({
+                        message: "Successfully Updated!",
+                        data: data,
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
@@ -71,7 +78,9 @@ exports.postDeleteQuestion = (req, res, next) => {
     Forum.deleteOne({ _id: id })
         .then((result) => {
             console.log("Deleted");
-            res.redirect("/display");
+            res.status(200).json({
+                message: "Successfully Deleted!",
+            });
         })
         .catch((err) => {
             console.log(err);
