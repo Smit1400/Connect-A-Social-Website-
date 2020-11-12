@@ -2,18 +2,16 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mongodb_url = require("./mongo_credentials");
 
-const userRoutes = require("./routes/user");
+const forumRoutes = require("./routes/forum");
 
 const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
 
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.set("view engine", "ejs");
-app.set("views", "views");
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -29,9 +27,17 @@ app.get("/", (req, res, next) => {
     res.render("home");
 });
 
-// use /display to see all the questions
+app.use(forumRoutes);
 
-app.use(userRoutes);
+app.use((error, req, res, next) => {
+    console.log(error);
+    const status = error.statusCode;
+    const message = error.message;
+    res.status(status).json({
+        message: message,
+        data: error.data,
+    });
+});
 
 mongoose
     .connect(mongodb_url)
