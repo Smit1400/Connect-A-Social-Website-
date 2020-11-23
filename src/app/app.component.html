@@ -1,0 +1,7 @@
+<div *ngIf="!isLoggedIn; else homepage">
+    <router-outlet></router-outlet>
+</div>
+
+<ng-template #homepage>
+    <app-main></app-main>
+</ng-template>
