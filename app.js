@@ -3,6 +3,7 @@ const path = require("path");
 const mongodb_url = require("./mongo_credentials");
 
 const forumRoutes = require("./routes/forum");
+const authRoutes = require("./routes/auth");
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -27,6 +28,7 @@ app.get("/", (req, res, next) => {
     res.render("home");
 });
 
+app.use(authRoutes);
 app.use(forumRoutes);
 
 app.use((error, req, res, next) => {
