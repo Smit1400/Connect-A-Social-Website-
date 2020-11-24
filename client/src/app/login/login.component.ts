@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
       this.authService.loginService(this.formGroup.value).subscribe(
         (data) => {
           console.log(data);
+          localStorage.setItem('token', data.token);
           this.appComp.updateIsLoggedIn();
+          this.router.navigate(['']);
         },
         (error) => {
           console.log(error);

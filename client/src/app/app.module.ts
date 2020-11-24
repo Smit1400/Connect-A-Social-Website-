@@ -8,9 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthServiceService } from './auth-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
+import { AuthGuard } from './_gaurds';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, MainComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    MainComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -18,7 +24,7 @@ import { MainComponent } from './main/main.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [AuthServiceService],
+  providers: [AuthServiceService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

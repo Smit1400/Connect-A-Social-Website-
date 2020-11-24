@@ -7,16 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myproject';
-  isLoggedIn = false;
 
   updateIsLoggedIn(): void {
-    this.isLoggedIn = true;
     this.setAutoLogout();
   }
 
   setAutoLogout(): void {
     setTimeout(() => {
-      this.isLoggedIn = false;
+      // this.isLoggedIn = false;
+      localStorage.removeItem('token');
     }, 60 * 60 * 1000);
   }
 }
