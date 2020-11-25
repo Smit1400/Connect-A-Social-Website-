@@ -1,0 +1,64 @@
+body {
+    background-color: #eeeeee;
+}
+
+.h7 {
+    font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+
+/**Reset Bootstrap*/
+
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+
+ul {
+    list-style: none;
+}
+
+ul>li {
+    text-indent: 0%;
+}
+
+#header .logo {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+}
+
+#header .logo img {
+    max-height: 40px;
+}
+
+.delete-button {
+    margin: 10px;
+    border-radius: 15px;
+}
+
+.delete-button:hover {
+    background-color: rgb(236, 169, 169);
+    color: black;
+    cursor: pointer;
+    border-color: rgb(236, 169, 169);
+}

@@ -3,13 +3,15 @@ const router = express.Router();
 const { body } = require("express-validator/check");
 
 const forumController = require("../controller/forum");
+const isAuth = require("../middleware/isAuth");
 
 router.get("/display", forumController.getForum);
 
 router.get("/forum", forumController.getForumForm);
 
 router.post(
-    "/forum", [
+    "/forum",
+    isAuth, [
         body("question").trim().isLength({ min: 5 }),
         body("description").trim().isLength({ min: 10 }),
     ],

@@ -9,6 +9,7 @@ import { AuthServiceService } from './auth-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
 import { AuthGuard } from './_gaurds';
+import { DatabaseService } from './database.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { AuthGuard } from './_gaurds';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [AuthServiceService, AuthGuard],
+  providers: [AuthServiceService, AuthGuard, DatabaseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

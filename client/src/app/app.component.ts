@@ -16,6 +16,7 @@ export class AppComponent {
     setTimeout(() => {
       // this.isLoggedIn = false;
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
     }, 60 * 60 * 1000);
   }
 }

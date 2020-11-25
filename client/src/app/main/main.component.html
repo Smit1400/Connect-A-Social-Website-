@@ -1,1 +1,120 @@
-<p>Home Page</p>
+<div class="container-fluid gedf-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="h5">@LeeCross</div>
+                    <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
+                    <div class="h7">
+                        Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js, etc.
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">Followers</div>
+                        <div class="h5">5.2342</div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">Following</div>
+                        <div class="h5">6758</div>
+                    </li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 gedf-main">
+            <!--- \\\\\\\Post-->
+            <div class="card gedf-card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Start a discussion</a
+              >
+            </li>
+          </ul>
+        </div>
+        <form [formGroup]="formGroup" (ngSubmit)="postAForum()">
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="posts"
+                role="tabpanel"
+                aria-labelledby="posts-tab"
+              >
+                <div class="form-group">
+                  <label class="sr-only" for="message">post</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="2"
+                    placeholder="Your Question?"
+                    formControlName="question"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="sr-only" for="message">post</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="5"
+                    placeholder="Description"
+                    formControlName="description"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-toolbar justify-content-between">
+              <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Post</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <ul>
+        <li *ngFor="let forum of data">
+          <div class="card gedf-card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="mr-2">
+                    <img
+                      class="rounded-circle"
+                      width="45"
+                      src="https://picsum.photos/50/50"
+                      alt=""
+                    />
+                  </div>
+                  <div class="ml-2">
+                    <div class="h5 m-0">{{ forum.creator.name }}</div>
+                    <div class="h7 text-muted">{{ forum.creator.email }}</div>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <a class="card-link" href="#">
+                <h5 class="card-title">
+                  {{ forum.question }}
+                </h5>
+              </a>
+
+                            <p class="card-text">
+                                {{ forum.description }}
+                            </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a
+              >
+              <button class="btn btn-danger delete-button">Delete</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
