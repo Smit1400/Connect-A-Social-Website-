@@ -42,7 +42,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-    .connect(mongodb_url, { useNewUrlParser: true })
+    .connect(mongodb_url, { useNewUrlParser: true, useFindAndModify: false })
     .then((result) => {
         console.log("server started");
         app.listen(3000);

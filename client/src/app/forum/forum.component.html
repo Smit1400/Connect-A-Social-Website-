@@ -3,10 +3,10 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="h5">@LeeCross</div>
-                    <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
+                    <div class="h5">@Username</div>
+                    <div class="h7 text-muted">Fullname : {{ name }}</div>
                     <div class="h7">
-                        Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js, etc.
+                        {{ email }}
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -18,7 +18,6 @@
                         <div class="h6 text-muted">Following</div>
                         <div class="h5">6758</div>
                     </li>
-                    <li class="list-group-item">Vestibulum at eros</li>
                 </ul>
             </div>
         </div>
@@ -75,7 +74,7 @@
         </form>
       </div>
       <ul>
-        <li *ngFor="let forum of data">
+        <li *ngFor="let forum of forumData">
           <div class="card gedf-card">
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
@@ -110,7 +109,14 @@
                 <div class="card-footer">
                     <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a
               >
-              <button class="btn btn-danger delete-button">Delete</button>
+
+              <button
+                class="btn btn-danger delete-button"
+                *ngIf="email === forum.creator.email"
+                (click)="onDeleteForum(forum._id)"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </li>

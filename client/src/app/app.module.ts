@@ -7,16 +7,18 @@ import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthServiceService } from './auth-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MainComponent } from './main/main.component';
+import { ForumComponent } from './forum/forum.component';
 import { AuthGuard } from './_gaurds';
 import { DatabaseService } from './database.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent,
+    ForumComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ const { body } = require("express-validator/check");
 const forumController = require("../controller/forum");
 const isAuth = require("../middleware/isAuth");
 
-router.get("/display", forumController.getForum);
+router.get("/display", isAuth, forumController.getForum);
 
 router.get("/forum", forumController.getForumForm);
 
@@ -20,19 +20,27 @@ router.post(
 
 router.delete(
     "/delete-question/:questionId",
+    isAuth,
     forumController.postDeleteQuestion
 );
 
 router.put(
-    "/edit-question", [
+    "/edit-question",
+    isAuth, [
         body("question").trim().isLength({ min: 5 }),
         body("description").trim().isLength({ min: 10 }),
     ],
     forumController.postEditQuestionForm
 );
 
-router.put("/edit-question", [body("comment").trim().isLength({ min: 5 })]);
+router.put("/edit-question", isAuth, [
+    body("comment").trim().isLength({ min: 5 }),
+]);
 
-router.get("/edit-question/:questionId", forumController.getEditQuestionForm);
+router.get(
+    "/edit-question/:questionId",
+    isAuth,
+    forumController.getEditQuestionForm
+);
 
 module.exports = router;

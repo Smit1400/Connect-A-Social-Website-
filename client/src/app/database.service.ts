@@ -23,4 +23,12 @@ export class DatabaseService {
       },
     });
   }
+
+  deleteAForum(id: any): Observable<any> {
+    return this.http.delete('http://localhost:3000/delete-question/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+  }
 }
