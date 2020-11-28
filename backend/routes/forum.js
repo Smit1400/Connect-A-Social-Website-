@@ -9,6 +9,8 @@ router.get("/display", isAuth, forumController.getForum);
 
 router.get("/forum", forumController.getForumForm);
 
+router.post("/single-forum", isAuth, forumController.getAForum);
+
 router.post(
     "/forum",
     isAuth, [
@@ -25,7 +27,7 @@ router.delete(
 );
 
 router.put(
-    "/edit-question",
+    "/editquestion",
     isAuth, [
         body("question").trim().isLength({ min: 5 }),
         body("description").trim().isLength({ min: 10 }),
@@ -33,9 +35,11 @@ router.put(
     forumController.postEditQuestionForm
 );
 
-router.put("/edit-question", isAuth, [
-    body("comment").trim().isLength({ min: 5 }),
-]);
+router.put(
+    "/edit-question",
+    isAuth, [body("comment").trim().isLength({ min: 5 })],
+    forumController.addAComment
+);
 
 router.get(
     "/edit-question/:questionId",

@@ -20,6 +20,36 @@ exports.getForum = async(req, res, next) => {
     }
 };
 
+exports.getAForum = async(req, res, next) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const error = new Error("Validation failed, entered data is incorrect.");
+            error.statusCode = 422;
+            throw error;
+        }
+        const id = req.body.forumId;
+        const forum = await Forum.findById(id)
+            .populate("creator")
+            .populate("comments.userId");
+        if (!forum) {
+            const error = new Error("Could not find Forum.");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        res.status(200).json({
+            forum: forum,
+            message: "Successfully Fetched!",
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
+
 exports.getForumForm = (req, res, next) => {
     res.render("forum");
 };
@@ -108,6 +138,47 @@ exports.postEditQuestionForm = async(req, res, next) => {
         next(err);
     }
 };
+
+exports.addAComment = async(req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const error = new Error("Validation failed, entered data is incorrect.");
+        error.statusCode = 422;
+        throw error;
+    }
+    const id = req.body.id;
+    const fromId = req.body.fromId;
+    const comment = req.body.comment;
+    console.log(id);
+    try {
+        const forum = await Forum.findById(id).populate("creator");
+        if (!forum) {
+            const error = new Error("Could not find Forum.");
+            error.statusCode = 404;
+            throw error;
+        }
+        if (forum.creator._id.toString() !== req.userId) {
+            const error = new Error("Not authorized!");
+            error.statusCode = 403;
+        }
+        let newComment = {
+            comment: comment,
+            userId: fromId,
+        };
+        forum.comments.push(newComment);
+        await forum.save();
+        res.status(200).json({
+            message: "Successfully Updated!",
+            data: forum,
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
+
 exports.postDeleteQuestion = async(req, res, next) => {
     const id = req.params.questionId;
     try {

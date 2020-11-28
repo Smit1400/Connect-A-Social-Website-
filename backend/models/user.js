@@ -14,6 +14,19 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    profession: {
+        type: String,
+        required: true,
+    },
+    about: {
+        type: String,
+        required: true,
+    },
     forums: [{
         type: Schema.Types.ObjectId,
         ref: "Forum",

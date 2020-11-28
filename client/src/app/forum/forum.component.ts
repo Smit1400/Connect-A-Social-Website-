@@ -14,6 +14,9 @@ export class ForumComponent implements OnInit {
   name;
   email;
   formGroup: FormGroup;
+  username;
+  profession;
+  about;
 
   constructor(
     private databaseService: DatabaseService,
@@ -30,6 +33,9 @@ export class ForumComponent implements OnInit {
   initializeUserData(): void {
     this.email = localStorage.getItem('email');
     this.name = localStorage.getItem('name');
+    this.username = localStorage.getItem('username');
+    this.profession = localStorage.getItem('profession');
+    this.about = localStorage.getItem('about');
     console.log('email = ' + this.email);
     console.log('name = ' + this.name);
   }
@@ -83,5 +89,10 @@ export class ForumComponent implements OnInit {
         }
       }
     );
+  }
+
+  onCommentPressed(forum): void {
+    console.log(forum._id);
+    this.router.navigate(['forum', forum._id]);
   }
 }

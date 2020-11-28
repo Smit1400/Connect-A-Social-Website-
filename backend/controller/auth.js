@@ -15,6 +15,9 @@ exports.signup = async(req, res, next) => {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
+    const username = req.body.username;
+    const profession = req.body.profession;
+    const about = req.body.about;
     try {
         const hashedPw = await bcrypt.hash(password, 12);
 
@@ -23,6 +26,9 @@ exports.signup = async(req, res, next) => {
             password: hashedPw,
             name: name,
             forums: [],
+            username: username,
+            profession: profession,
+            about: about,
         });
         const result = await user.save();
         res.status(201).json({ message: "User created!", userId: result._id });
@@ -58,14 +64,15 @@ exports.login = async(req, res, next) => {
             },
             "somesupersecretsecret", { expiresIn: "1h" }
         );
-        res
-            .status(200)
-            .json({
-                token: token,
-                userId: loadedUser._id.toString(),
-                email: loadedUser.email,
-                name: loadedUser.name,
-            });
+        res.status(200).json({
+            token: token,
+            userId: loadedUser._id.toString(),
+            email: loadedUser.email,
+            name: loadedUser.name,
+            username: loadedUser.username,
+            profession: loadedUser.profession,
+            about: loadedUser.about,
+        });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

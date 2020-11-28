@@ -31,4 +31,24 @@ export class DatabaseService {
       },
     });
   }
+
+  getForumData(id: any): Observable<any> {
+    return this.http.post(
+      'http://localhost:3000/single-forum/',
+      { forumId: id },
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    );
+  }
+
+  postAComment(data: any): Observable<any> {
+    return this.http.put('http://localhost:3000/edit-question/', data, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+  }
 }

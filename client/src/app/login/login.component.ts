@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('name', data.name);
           localStorage.setItem('email', data.email);
+          localStorage.setItem('username', data.username);
+          localStorage.setItem('profession', data.profession);
+          localStorage.setItem('about', data.about);
           localStorage.setItem('isLoggedIn', 'true');
           this.appComp.updateIsLoggedIn();
           this.router.navigate(['']);

@@ -11,6 +11,7 @@ import { ForumComponent } from './forum/forum.component';
 import { AuthGuard } from './_gaurds';
 import { DatabaseService } from './database.service';
 import { HomeComponent } from './home/home.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     ForumComponent,
     HomeComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,20 +3,18 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="h5">@Username</div>
-                    <div class="h7 text-muted">Fullname : {{ name }}</div>
-                    <div class="h7">
-                        {{ email }}
-                    </div>
+                    <div class="h5">@{{ username }}</div>
+                    <div class="h7 text-muted">Name : {{ name }}</div>
+                    <div class="h7">Email : {{ email }}</div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <div class="h6 text-muted">Followers</div>
-                        <div class="h5">5.2342</div>
+                        <div class="h6 text-muted">Profession</div>
+                        <div class="h5">{{ profession }}</div>
                     </li>
                     <li class="list-group-item">
-                        <div class="h6 text-muted">Following</div>
-                        <div class="h5">6758</div>
+                        <div class="h6 text-muted">About</div>
+                        <div class="h5">{{ about }}</div>
                     </li>
                 </ul>
             </div>
@@ -107,20 +105,17 @@
                             </p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a
-              >
+                    <button (click)="onCommentPressed(forum)" class="btn btn-success comment-button">
+                <i class="fa fa-comment"></i> Comment
+              </button>
 
-              <button
-                class="btn btn-danger delete-button"
-                *ngIf="email === forum.creator.email"
-                (click)="onDeleteForum(forum._id)"
-              >
+                    <button class="btn btn-danger delete-button" *ngIf="email === forum.creator.email" (click)="onDeleteForum(forum._id)">
                 Delete
               </button>
+                </div>
             </div>
-          </div>
-        </li>
-      </ul>
+            </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>

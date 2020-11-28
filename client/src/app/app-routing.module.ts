@@ -6,8 +6,14 @@ import { ForumComponent } from './forum/forum.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_gaurds';
 import { HomeComponent } from './home/home.component';
+import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [
+  {
+    path: 'forum/:forumId',
+    component: CommentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'forum', component: ForumComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
