@@ -1,0 +1,100 @@
+.h7 {
+    font-size: 1.5rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+
+/**Reset Bootstrap*/
+
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+
+ul {
+    list-style: none;
+}
+
+ul>li {
+    text-indent: 0%;
+}
+
+#header .logo {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+}
+
+#header .logo img {
+    max-height: 40px;
+}
+
+ul>li {
+    margin: 0px 5px;
+    padding: 5px;
+}
+
+ul>li>a {
+    font-size: medium;
+}
+
+ul>li>a:hover {
+    color: #bccec1;
+    border-radius: 10px;
+    /* margin: 10px; */
+    padding: 5px;
+}
+
+
+/* navbar */
+
+
+/* .nav-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-menu>ul {
+    display: flex;
+}
+
+.nav-menu>ul>li {
+    position: relative;
+    white-space: nowrap;
+    padding: 10px 0 10px 24px;
+}
+
+.nav-menu a {
+    display: block;
+    position: relative;
+    color: #37423b;
+    transition: 0.3s;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.nav-menu a:hover,
+.nav-menu .active>a,
+.nav-menu li:hover>a {
+    color: #5fcf80;
+} */

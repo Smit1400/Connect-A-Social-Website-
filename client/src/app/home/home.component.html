@@ -1,0 +1,129 @@
+<div class="container-fluid gedf-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="h5">@{{ username }}</div>
+                    <div class="h7 text-muted">Name : {{ name }}</div>
+                    <div class="h7">Email : {{ email }}</div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">Profession</div>
+                        <div class="h5">{{ profession }}</div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">About</div>
+                        <div class="h5">{{ about }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 gedf-main">
+            <!--- \\\\\\\Post-->
+            <div class="card gedf-card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Upload a Post</a
+              >
+            </li>
+          </ul>
+        </div>
+        <form (submit)="postCreated()">
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="posts"
+                role="tabpanel"
+                aria-labelledby="posts-tab"
+              >
+                <!-- <div class="form-group">
+                  <label class="sr-only" for="message">post</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="2"
+                    placeholder="Your Question?"
+                    formControlName="question"
+                  ></textarea>
+                </div> -->
+
+                <div class="form-group">
+                  <label class="sr-only" for="content">post</label>
+                  
+                   <textarea type="text" class="input-box" style="width: 340px" rows="3" padding="10px" placeholder="Message" [(ngModel)]="caption" name="caption" required>
+                  </textarea>
+                </div>
+                
+                <div class="form-group">
+                  <div class="custom-file">
+                      <label for="image">Upload Image </label> 
+                      <input type="file" id="image" 
+                          name="image" (change)="onFileSelected($event)"  > 
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-toolbar justify-content-between">
+              <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Share</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <ul>
+        <div *ngFor="let post of data">
+          <div class="card gedf-card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="mr-2">
+                    <img
+                      class="rounded-circle"
+                      width="45"
+                      src="https://picsum.photos/50/50"
+                      alt=""
+                    />
+                  </div>
+                  <div class="ml-2">
+                    <div class="h5 m-0">{{ post.creator.name }}</div>
+                    <div class="h7 text-muted">{{ post.creator.email }}</div>
+                    <!-- <div class="h7 text-muted">{{ post.createdAt }}</div> -->
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="post.imageUrl == null">
+
+              <a class="card-link">
+                <p class="card-title">
+                  {{ post.content }}
+                </p>
+              </a>
+            </div>
+            <div class="card-body" *ngIf="post.imageUrl != null">
+              <div class="pmd-card-media">
+                <img src="{{post.imageUrl}}" width="1184" height="666" class="img-fluid">
+            </div>
+              <a class="card-link" >
+                <p class="card-title">
+                  {{ post.content }}
+                </p>
+              </a>
+            </div>
+                <div class="card-footer">
+                    <!-- <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a
+              > -->
+              <button class="btn btn-danger delete-button" *ngIf="email === post.creator.email" (click)="onDeletePost(post._id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
