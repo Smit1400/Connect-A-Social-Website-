@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const postSchema = Schema({
-        // post_title:{
-        //     type: String,
-        //     required: true
-        // },
         content:{
             type: String,
             required: true
@@ -14,15 +10,16 @@ const postSchema = Schema({
         imageUrl:{
             type: String,
         },
-        // isText : {
-        //     type:Boolean,
-        //     default: true,
-        // },
         creator: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
+        likes: [
+            { type: Schema.Types.ObjectId, 
+              ref: "User" 
+            }
+        ],
     },
     { timestamps: true }
 );

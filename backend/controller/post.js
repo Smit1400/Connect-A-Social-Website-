@@ -34,11 +34,9 @@ exports.savePosts = async(req, res, next) => {
 
     console.log("Content = " + content);
     console.log("Req.body =  " + req.body.imageUrl);
-    // console.log("Description = " + description);
     try {
         if(req.body.imageUrl == null ){ 
             var imageUrl = null;
-            // console.log(post)
         }
         else{
             var imageUrl = req.body.imageUrl;            
@@ -58,49 +56,6 @@ exports.savePosts = async(req, res, next) => {
             message: "Post created successfully!",
             post: post,
             creator: { _id: user._id, name: user.name },
-        });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
-exports.editPost = async(req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const error = new Error("Validation failed, entered data is incorrect.");
-        error.statusCode = 422;
-        throw error;
-    }
-    const id = req.body.postId;
-    const content = req.body.content;
-
-    console.log(id);
-    try {
-        const post = await Post.findById(id).populate("creator");
-        if (!post) {
-            const error = new Error("Could not find Post.");
-            error.statusCode = 404;
-            throw error;
-        }
-        if (post.creator._id.toString() !== req.userId) {
-            const error = new Error("Not authorized!");
-            error.statusCode = 403;
-        }
-        post.content = content;
-        if(!req.file){          
-            post.imageUrl = null;
-        }
-        else
-        {
-            post.imageUrl = req.file.path;
-        }
-        await post.save();
-        res.status(200).json({
-            message: "Successfully Updated!",
-            data: data,
         });
     } catch (err) {
         if (!err.statusCode) {
@@ -133,6 +88,44 @@ exports.deletePost = async(req, res, next) => {
         });
     } catch (err) {
         if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
+
+exports.likePost = async(req, res, next) => {
+    try{
+        await Post.findByIdAndUpdate(req.body.postId, {
+            $push: { likes: req.userId }
+        }, {
+            new: true
+        });
+        res.status(200).json({
+            message: "Successfully Updated!",
+        });
+    }
+    catch (err) {
+        if(!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
+
+exports.unlikePost = async(req, res, next) => {
+    try{
+        await Post.findByIdAndUpdate(req.body.postId, {
+            $pull: { likes: req.userId }
+        }, {
+            new: true
+        });
+        res.status(200).json({
+            message: "Successfully Updated!",
+        });
+    }
+    catch (err) {
+        if(!err.statusCode) {
             err.statusCode = 500;
         }
         next(err);

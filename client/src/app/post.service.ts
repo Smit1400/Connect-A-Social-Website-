@@ -25,6 +25,24 @@ export class PostService {
     });
   }
 
+  likePost(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/like/', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+  }
+
+  unlikePost(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/unlike/', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+  }
+
   deletePost(id: any): Observable<any> {
     return this.http.delete('http://localhost:3000/delete-post/' + id, {
       headers: {

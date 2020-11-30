@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   caption = "";
   imageUrl = "";
   image: File = null
+  userid = localStorage.getItem('userId');
 
   formGroup: FormGroup;
   constructor(
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
 
   onFileSelected(event){
     this.image=<File>event.target.files[0]
-    console.log("image path==",(this.image))
+    console.log("Image path==",(this.image))
   }
 
   initForm(): void {
@@ -66,10 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   postCreated(){
-    console.log("hiii");
     const data = new FormData()
-    console.log(this.image);
-    console.log("after image ");
     if(this.image!= null){
       data.append("file",this.image)
       data.append("upload_preset",UPLOAD_PRESET)
@@ -77,11 +75,7 @@ export class HomeComponent implements OnInit {
       axios.post(URL,data,{headers:{"Content-Type": "multipart/form-data"}})
       .then(res=>res)
       .then(data=>{
-        console.log(data.data.url)
         this.imageUrl=data.data.url
-        console.log(this.caption)
-        
-        console.log("heyyyyyyyyyyy");
         const post={
           content: this.caption,
           imageUrl: this.imageUrl
@@ -89,10 +83,6 @@ export class HomeComponent implements OnInit {
         this.postservice.createPost(post).subscribe(
           (res) => {
             console.log(res)
-            // console.log(res)
-            // this.authService.storeUserData(res.token, res.user);
-            
-            // console.log(d);
             this.formGroup.reset();
             this.getAllPosts();
           
@@ -114,16 +104,9 @@ export class HomeComponent implements OnInit {
       this.postservice.createPost(post).subscribe(
         (res) => {
           console.log(res)
-          // console.log(res)
-          // this.authService.storeUserData(res.token, res.user);
-          
-          // console.log(d);
           this.formGroup.reset();
           this.getAllPosts();
-        
-        }
-        );
-        
+        });
       this.caption = "";
       this.imageUrl = "";
       this.image = null;
@@ -131,7 +114,7 @@ export class HomeComponent implements OnInit {
   }
 
   onDeletePost(id: any): void {
-    console.log(id);
+    // console.log(id);
     this.postservice.deletePost(id).subscribe(
       (data) => {
         console.log('Deleted Forum');
@@ -145,4 +128,47 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  liked(post){
+    if( post.likes.indexOf((this.userid)) !==-1){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+
+  like(post){
+    const postId={
+      postId:post._id
+    }
+    // console.log("postId",postId);
+    this.postservice.likePost(postId).subscribe(
+      (res) => {
+        console.log("liked",res);
+        post.likes.length++;
+        this.getAllPosts();
+      }, (error) => {
+        console.log(error);
+      },
+    );
+  }
+
+  onCreatePost(){
+    this.router.navigate(['/createPost'])
+  }
+
+  unlike(post){
+    const postId={
+      postId:post._id
+    }
+    this.postservice.unlikePost(postId).subscribe(
+      (res) => {
+        console.log("unliked",res);
+        post.likes.length--;
+        this.getAllPosts();
+      }, (error) => {
+        console.log(error);
+      },
+    );
+  }
 }

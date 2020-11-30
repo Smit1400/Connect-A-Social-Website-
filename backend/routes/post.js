@@ -20,16 +20,16 @@ router.delete(
     postController.deletePost
 );
 
-// router.put(
-//     "/edit-question", [
-//         body("question").trim().isLength({ min: 5 }),
-//         body("description").trim().isLength({ min: 10 }),
-//     ],
-//     postController.postEditQuestionForm
-// );
+router.post(
+    "/like",
+    isAuth, 
+    postController.likePost
+);
 
-// router.put("/edit-question", [body("comment").trim().isLength({ min: 5 })]);
-
-// router.get("/edit-question/:questionId", postController.getEditQuestionForm);
+router.post(
+    "/unlike",
+    isAuth, 
+    postController.unlikePost
+);
 
 module.exports = router;
